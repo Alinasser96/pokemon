@@ -1,15 +1,17 @@
-apply plugin: 'com.android.application'
-
+plugins {
+    id 'com.android.application'
+    id 'kotlin-android'
+}
+apply plugin: 'kotlin-kapt'
 apply plugin: 'dagger.hilt.android.plugin'
-
 android {
-    compileSdkVersion 29
-    buildToolsVersion "29.0.3"
+    compileSdkVersion 30
+    buildToolsVersion "30.0.3"
 
     defaultConfig {
-        applicationId "com.alyndroid.pokemon"
-        minSdkVersion 19
-        targetSdkVersion 29
+        applicationId "com.whiteside.bokemoncourse"
+        minSdkVersion 23
+        targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
@@ -21,36 +23,44 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
-    }
 
+        buildFeatures {
+            dataBinding true
+            viewBinding true
+        }
+    }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
+
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
-    testImplementation 'junit:junit:4.12'
+    implementation 'com.google.android.material:material:1.3.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+    testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
-    def room_version = "2.2.5"
-    def nav_version = "2.3.0-beta01"
+    //dagger hilt
+    ext.hilt_version = '2.33-beta'
+    implementation "com.google.dagger:hilt-android:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
 
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+
+    def nav_version = "2.3.5"
+
+    implementation "androidx.recyclerview:recyclerview:1.2.0"
     implementation "androidx.cardview:cardview:1.0.0"
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.3.0'
     implementation 'com.android.support:multidex:1.0.3'
-
-    // Hilt
-    implementation "com.google.dagger:hilt-android:2.28-alpha"
-    annotationProcessor 'com.google.dagger:hilt-android-compiler:2.28-alpha'
-    implementation 'androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha01'
-    annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha01'
 
     //RxJava
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.0'
@@ -62,25 +72,27 @@ dependencies {
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
 
     // ViewModel
-    implementation 'androidx.lifecycle:lifecycle-viewmodel:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.1'
 
     // LiveData
-    implementation 'androidx.lifecycle:lifecycle-livedata:2.2.0'
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.3.1'
 
     // Room
+    def room_version = "2.2.6"
     implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version"
-    implementation "androidx.room:room-rxjava2:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
 
     // Navigation
-    implementation "androidx.navigation:navigation-fragment:$nav_version"
-    implementation "androidx.navigation:navigation-ui:$nav_version"
+//    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+//    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
     // Glide
-    implementation 'com.github.bumptech.glide:glide:4.11.0'
+    implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.11.0'
 
     //sdp
     implementation 'com.intuit.sdp:sdp-android:1.0.6'
+
+//    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
 
 }

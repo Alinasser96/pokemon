@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">pokemon</string>
+    <string name="app_name">BokemonCourse</string>
+    <string name="go_to_favourites">go to Favourites</string>
 </resources>
