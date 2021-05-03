@@ -8,5 +8,5 @@ import retrofit2.http.GET
 interface PokemonAPI {
 
     @GET("pokemon")
-    fun getPokemons() : Observable<PokemonListResult>
+    suspend fun getPokemons() : PokemonListResult
 }

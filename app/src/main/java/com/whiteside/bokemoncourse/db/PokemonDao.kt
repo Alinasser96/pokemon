@@ -11,11 +11,11 @@ import com.whiteside.bokemoncourse.model.Pokemon
 interface PokemonDao {
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
-    fun insertPokemon(pokemon: Pokemon)
+    suspend fun insertPokemon(pokemon: Pokemon)
 
     @Query("select * from fav_pokemons")
-    fun getPokemons() : List<Pokemon>
+    suspend fun getPokemons(): List<Pokemon>
 
-    @Query("delete from fav_pokemons where id =:id")
-    fun deletePokemon(id: Int)
+    @Query("delete from fav_pokemons where name =:name")
+    suspend fun deletePokemon(name: String)
 }
